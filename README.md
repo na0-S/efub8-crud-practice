@@ -1,16 +1,74 @@
-# React + Vite
+# EFUB 8주차 과제 - CRUD 게시판 만들기
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> ⚠️ `answer` 브랜치 pr 배너 뜨는건 신경쓰지 마세요
 
-Currently, two official plugins are available:
+## 📌 과제 목표
+API 명세서를 보고 게시판의 CRUD 기능을 완성해보세요!
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 시작하기
 
-## React Compiler
+```bash
+# 1. 이 레포를 본인 GitHub으로 fork
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# 2. fork한 레포 클론
+git clone [본인 fork 레포 URL]
 
-## Expanding the ESLint configuration
+# 3. 패키지 설치
+yarn
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# 4. 개발 서버 실행
+yarn dev
+```
+
+## 📋 API 명세서
+스웨거: https://efub6-seminar-front.p-e.kr/swagger-ui/index.html#/Posts
+
+| Method | URL | 설명 |
+|--------|-----|------|
+| GET | /api/posts | 게시글 목록 조회 |
+| GET | /api/posts/{id} | 게시글 단건 조회 |
+| POST | /api/posts | 게시글 작성 |
+| PATCH | /api/posts/{id} | 게시글 수정 |
+| DELETE | /api/posts/{id} | 게시글 삭제 |
+
+## ✏️ TODO 목록
+`// TODO` 주석을 찾아서 순서대로 완성해보세요!
+
+| TODO | 파일 | 내용 |
+|------|------|------|
+| TODO 1 | `src/api/postApi.js` | 게시글 목록 조회 함수 |
+| TODO 2 | `src/api/postApi.js` | 게시글 단건 조회 함수 |
+| TODO 3 | `src/api/postApi.js` | 게시글 작성 함수 |
+| TODO 4 | `src/api/postApi.js` | 게시글 수정 함수 |
+| TODO 5 | `src/api/postApi.js` | 게시글 삭제 함수 |
+| TODO 6 | `src/pages/HomePage.jsx` | 목록 불러오기 (useEffect) |
+| TODO 7 | `src/pages/HomePage.jsx` | 삭제 핸들러 |
+| TODO 8 | `src/pages/HomePage.jsx` | 게시글 목록 렌더링 |
+| TODO 9 | `src/pages/DetailPage.jsx` | 단건 조회 (useEffect) |
+| TODO 10 | `src/pages/DetailPage.jsx` | 삭제 핸들러 |
+| TODO 11 | `src/pages/CreatePage.jsx` | 작성 핸들러 |
+| TODO 12 | `src/pages/EditPage.jsx` | 기존 데이터 불러오기 |
+| TODO 13 | `src/pages/EditPage.jsx` | 수정 핸들러 |
+
+## 📁 폴더 구조
+```
+src/
+├── api/
+│   └── postApi.js       # axios 인스턴스 + API 함수 (TODO 1~5)
+├── pages/
+│   ├── HomePage.jsx     # 게시글 목록 페이지 (TODO 6~8)
+│   ├── DetailPage.jsx   # 게시글 상세 페이지 (TODO 9~10)
+│   ├── CreatePage.jsx   # 게시글 작성 페이지 (TODO 11)
+│   └── EditPage.jsx     # 게시글 수정 페이지 (TODO 12~13)
+├── styles/
+│   └── GlobalStyle.js
+└── App.jsx
+```
+
+## ✨ 과제 제출
+- styled-components로 나만의 스타일로 꾸며주세요!
+- 완성 후 Vercel 등으로 배포해주세요.
+- 이 레포를 **fork**한 뒤 작업하고, `main` 브랜치로 **PR**을 보내주세요.
+- PR 제출 시 아래 내용을 포함해주세요:
+  - 결과물 소개
+  - 배포 URL
