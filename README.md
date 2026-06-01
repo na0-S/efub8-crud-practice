@@ -8,15 +8,13 @@ API 명세서를 보고 게시판의 CRUD 기능을 완성해보세요!
 ## 🚀 시작하기
 
 ```bash
-# 1. 이 레포를 본인 GitHub으로 fork
-
-# 2. fork한 레포 클론
-git clone [본인 fork 레포 URL]
-
-# 3. 패키지 설치
+# 1. 이 레포 클론
+git clone https://github.com/pororori/efub8-crud-practice.git
+ 
+# 2. 패키지 설치
 yarn
-
-# 4. 개발 서버 실행
+ 
+# 3. 개발 서버 실행
 yarn dev
 ```
 
