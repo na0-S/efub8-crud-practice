@@ -9,21 +9,23 @@ function EditPage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  // TODO 12: 컴포넌트가 처음 렌더링될 때 기존 게시글 데이터를 불러와서
-  // title과 content state에 저장하세요.
   useEffect(() => {
-    /* TODO: 여기에 코드를 작성하세요 */
+    const fetchPost = async () => {
+      const data = await getPostById(id);
+      setTitle(data.title);
+      setContent(data.content);
+    };
+    fetchPost();
   }, [id]);
 
-  // TODO 13: 게시글 수정 핸들러를 완성하세요.
-  // 힌트: updatePost(id, { title, content }) 호출 후 상세 페이지로 이동하세요.
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!title.trim() || !content.trim()) {
       alert("제목과 내용을 모두 입력해주세요!");
       return;
     }
-    /* TODO: 여기에 코드를 작성하세요 */
+    await updatePost(id, { title, content });
+    navigate(`/post/${id}`);
   };
 
   return (
@@ -57,7 +59,6 @@ function EditPage() {
 
 export default EditPage;
 
-// --- Styled Components ---
 const Container = styled.div`
   max-width: 800px;
   margin: 0 auto;

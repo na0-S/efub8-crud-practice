@@ -8,15 +8,14 @@ function CreatePage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  // TODO 11: 게시글 작성 핸들러를 완성하세요.
-  // 힌트: createPost({ title, content }) 호출 후 홈("/")으로 이동하세요.
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!title.trim() || !content.trim()) {
       alert("제목과 내용을 모두 입력해주세요!");
       return;
     }
-    /* TODO: 여기에 코드를 작성하세요 */
+    await createPost({ title, content });
+    navigate("/");
   };
 
   return (
@@ -50,7 +49,6 @@ function CreatePage() {
 
 export default CreatePage;
 
-// --- Styled Components ---
 const Container = styled.div`
   max-width: 800px;
   margin: 0 auto;

@@ -7,17 +7,19 @@ function HomePage() {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
 
-  // TODO 6: 컴포넌트가 처음 렌더링될 때 게시글 목록을 불러오세요.
-  // 힌트: useEffect와 getPosts()를 사용하세요.
   useEffect(() => {
-    /* TODO: 여기에 코드를 작성하세요 */
+    fetchPosts();
   }, []);
 
-  // TODO 7: 게시글 삭제 핸들러를 완성하세요.
-  // 힌트: deletePost(id) 호출 후 목록을 다시 불러오거나 state를 업데이트하세요.
+  const fetchPosts = async () => {
+    const data = await getPosts();
+    setPosts(data);
+  };
+
   const handleDelete = async (id) => {
     if (!window.confirm("정말 삭제하시겠어요?")) return;
-    /* TODO: 여기에 코드를 작성하세요 */
+    await deletePost(id);
+    setPosts((prev) => prev.filter((post) => post.id !== id));
   };
 
   return (
@@ -27,10 +29,27 @@ function HomePage() {
         <WriteButton onClick={() => navigate("/create")}>글 작성</WriteButton>
       </Header>
 
-      {/* TODO 8: posts 배열을 map으로 순회하며 게시글 목록을 렌더링하세요. */}
       <PostList>
-        {/* TODO: 여기에 코드를 작성하세요 */}
-        {/* 힌트: 각 게시글 카드에 제목, 내용 미리보기, 상세보기/수정/삭제 버튼이 있으면 좋아요! */}
+        {posts.length === 0 && <Empty>게시글이 없어요. 첫 글을 작성해보세요!</Empty>}
+        {posts.map((post) => (
+          <PostCard key={post.id}>
+            <PostInfo>
+              <PostTitle>{post.title}</PostTitle>
+              <PostContent>{post.content}</PostContent>
+            </PostInfo>
+            <ButtonGroup>
+              <DetailButton onClick={() => navigate(`/post/${post.id}`)}>
+                상세보기
+              </DetailButton>
+              <EditButton onClick={() => navigate(`/edit/${post.id}`)}>
+                수정
+              </EditButton>
+              <DeleteButton onClick={() => handleDelete(post.id)}>
+                삭제
+              </DeleteButton>
+            </ButtonGroup>
+          </PostCard>
+        ))}
       </PostList>
     </Container>
   );
@@ -38,7 +57,6 @@ function HomePage() {
 
 export default HomePage;
 
-// --- Styled Components ---
 const Container = styled.div`
   max-width: 800px;
   margin: 0 auto;
@@ -73,4 +91,88 @@ const PostList = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
+`;
+
+const Empty = styled.p`
+  text-align: center;
+  color: #999;
+  margin-top: 60px;
+`;
+
+const PostCard = styled.div`
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+`;
+
+const PostInfo = styled.div`
+  flex: 1;
+  overflow: hidden;
+`;
+
+const PostTitle = styled.h2`
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const PostContent = styled.p`
+  font-size: 13px;
+  color: #888;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+`;
+
+const DetailButton = styled.button`
+  background-color: #e3f2fd;
+  color: #1976d2;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+
+  &:hover {
+    background-color: #bbdefb;
+  }
+`;
+
+const EditButton = styled.button`
+  background-color: #fff3e0;
+  color: #f57c00;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+
+  &:hover {
+    background-color: #ffe0b2;
+  }
+`;
+
+const DeleteButton = styled.button`
+  background-color: #ffebee;
+  color: #d32f2f;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+
+  &:hover {
+    background-color: #ffcdd2;
+  }
 `;

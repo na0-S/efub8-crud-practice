@@ -8,17 +8,18 @@ function DetailPage() {
   const navigate = useNavigate();
   const [post, setPost] = useState(null);
 
-  // TODO 9: 컴포넌트가 처음 렌더링될 때 id에 해당하는 게시글을 불러오세요.
-  // 힌트: useEffect와 getPostById(id)를 사용하세요.
   useEffect(() => {
-    /* TODO: 여기에 코드를 작성하세요 */
+    const fetchPost = async () => {
+      const data = await getPostById(id);
+      setPost(data);
+    };
+    fetchPost();
   }, [id]);
 
-  // TODO 10: 게시글 삭제 핸들러를 완성하세요.
-  // 삭제 후 홈("/")으로 이동하세요.
   const handleDelete = async () => {
     if (!window.confirm("정말 삭제하시겠어요?")) return;
-    /* TODO: 여기에 코드를 작성하세요 */
+    await deletePost(id);
+    navigate("/");
   };
 
   if (!post) return <div>로딩 중...</div>;
@@ -38,7 +39,6 @@ function DetailPage() {
 
 export default DetailPage;
 
-// --- Styled Components ---
 const Container = styled.div`
   max-width: 800px;
   margin: 0 auto;
