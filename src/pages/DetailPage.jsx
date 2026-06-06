@@ -11,14 +11,33 @@ function DetailPage() {
   // TODO 9: 컴포넌트가 처음 렌더링될 때 id에 해당하는 게시글을 불러오세요.
   // 힌트: useEffect와 getPostById(id)를 사용하세요.
   useEffect(() => {
-    /* TODO: 여기에 코드를 작성하세요 */
+    const fetchPost = async () => {
+      try {
+        const data = await getPostById(id);
+        setPost(data); // 가져온 게시글 데이터를 상태에 저장
+      } catch (error) {
+        alert("게시글을 불러오는 데 실패했습니다.");
+        console.error(error);
+        navigate("/"); // 에러 발생 시 목록으로 튕겨내기
+      }
+    };
+
+    fetchPost();
   }, [id]);
 
   // TODO 10: 게시글 삭제 핸들러를 완성하세요.
   // 삭제 후 홈("/")으로 이동하세요.
   const handleDelete = async () => {
     if (!window.confirm("정말 삭제하시겠어요?")) return;
-    /* TODO: 여기에 코드를 작성하세요 */
+
+    try {
+      await deletePost(id); // API를 통해 삭제 요청
+      alert("게시글이 삭제되었습니다.");
+      navigate("/"); // 삭제 후 홈으로 이동
+    } catch (error) {
+      alert("게시글 삭제에 실패했습니다.");
+      console.error(error);
+    }
   };
 
   if (!post) return <div>로딩 중...</div>;

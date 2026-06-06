@@ -13,6 +13,16 @@ function EditPage() {
   // title과 content state에 저장하세요.
   useEffect(() => {
     /* TODO: 여기에 코드를 작성하세요 */
+    const fetchPost = async () => {
+      try {
+        const data = await getPostById(id);
+        setTitle(data.title);
+        setContent(data.content);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchPost();
   }, [id]);
 
   // TODO 13: 게시글 수정 핸들러를 완성하세요.
@@ -24,6 +34,12 @@ function EditPage() {
       return;
     }
     /* TODO: 여기에 코드를 작성하세요 */
+    try {
+      await updatePost(id, { title, content });
+      navigate(`/post/${id}`);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

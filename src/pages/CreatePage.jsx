@@ -16,7 +16,18 @@ function CreatePage() {
       alert("제목과 내용을 모두 입력해주세요!");
       return;
     }
-    /* TODO: 여기에 코드를 작성하세요 */
+    try {
+      // 1. API 폴더에 만들어 둔 createPost 함수에 데이터 전달
+      await createPost({ title, content });
+      
+      // 2. 작성이 성공하면 안내 메시지를 띄우고 홈("/")으로 이동
+      alert("게시글이 성공적으로 등록되었습니다!");
+      navigate("/");
+    } catch (error) {
+      // 3. 서버 통신 중 에러가 발생했을 때 처리
+      alert("게시글 등록에 실패했습니다. 다시 시도해 주세요.");
+      console.error(error);
+    }
   };
 
   return (
